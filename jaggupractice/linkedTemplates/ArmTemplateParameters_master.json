@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "jaggupractice"
+		},
+		"BlobInput_connectionString": {
+			"value": ""
+		},
+		"OutputStorageSQL_password": {
+			"value": ""
+		},
+		"OutputStorageSQL_properties_typeProperties_server": {
+			"value": "itsdemoserver.database.windows.net"
+		},
+		"OutputStorageSQL_properties_typeProperties_database": {
+			"value": "jaggupractice"
+		},
+		"OutputStorageSQL_properties_typeProperties_userName": {
+			"value": "jagadish"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename": {
+			"value": "customers-10000"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+			"value": "Stg_CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName": {
+			"value": "jagguinput"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables": {
+			"value": "Final_Stg_CustomerData,Stg_CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_typeProperties_scope": {
+			"value": "/subscriptions/60c38991-bea0-4220-b74a-3db010183ee8/resourceGroups/azurelearn/providers/Microsoft.Storage/storageAccounts/demofordatafactory"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

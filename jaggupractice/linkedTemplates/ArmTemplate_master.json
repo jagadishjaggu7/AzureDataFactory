@@ -1,0 +1,112 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "jaggupractice"
+		},
+		"BlobInput_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'BlobInput'"
+		},
+		"OutputStorageSQL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'OutputStorageSQL'"
+		},
+		"OutputStorageSQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "itsdemoserver.database.windows.net"
+		},
+		"OutputStorageSQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "jaggupractice"
+		},
+		"OutputStorageSQL_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "jagadish"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename": {
+			"type": "string",
+			"defaultValue": "customers-10000"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+			"type": "string",
+			"defaultValue": "Stg_CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName": {
+			"type": "string",
+			"defaultValue": "jagguinput"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables": {
+			"type": "string",
+			"defaultValue": "Final_Stg_CustomerData,Stg_CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/60c38991-bea0-4220-b74a-3db010183ee8/resourceGroups/azurelearn/providers/Microsoft.Storage/storageAccounts/demofordatafactory"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "jaggupractice_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"BlobInput_connectionString": {
+						"value": "[parameters('BlobInput_connectionString')]"
+					},
+					"OutputStorageSQL_password": {
+						"value": "[parameters('OutputStorageSQL_password')]"
+					},
+					"OutputStorageSQL_properties_typeProperties_server": {
+						"value": "[parameters('OutputStorageSQL_properties_typeProperties_server')]"
+					},
+					"OutputStorageSQL_properties_typeProperties_database": {
+						"value": "[parameters('OutputStorageSQL_properties_typeProperties_database')]"
+					},
+					"OutputStorageSQL_properties_typeProperties_userName": {
+						"value": "[parameters('OutputStorageSQL_properties_typeProperties_userName')]"
+					},
+					"triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename')]"
+					},
+					"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName')]"
+					},
+					"triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName')]"
+					},
+					"triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables')]"
+					},
+					"triggerWhenNew FileAdded_properties_typeProperties_scope": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
