@@ -430,6 +430,12 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
+					},
+					{
+						"activity": "Data flow1",
+						"dependencyConditions": [
+							"Failed"
+						]
 					}
 				],
 				"policy": {
