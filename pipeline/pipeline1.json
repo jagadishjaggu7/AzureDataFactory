@@ -687,19 +687,24 @@
 		],
 		"parameters": {
 			"Filename": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "customers-10000"
 			},
 			"Stg_TableName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Stg_CustomerData"
 			},
 			"ContainerName": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "jagguinput"
 			},
 			"StagingTables": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "Final_Stg_CustomerData,Stg_CustomerData"
 			},
 			"MainTable": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "CustomerData"
 			},
 			"Schema": {
 				"type": "string",
