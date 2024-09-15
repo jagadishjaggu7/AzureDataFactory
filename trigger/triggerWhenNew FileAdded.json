@@ -11,7 +11,7 @@
 				},
 				"parameters": {
 					"Filename": "customers-10000",
-					"TableName": "Stg_CustomerData",
+					"Stg_TableName": "Stg_CustomerData",
 					"ContainerName": "jagguinput",
 					"StagingTables": "Final_Stg_CustomerData,Stg_CustomerData"
 				}
