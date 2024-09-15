@@ -1,0 +1,9 @@
+{
+	"name": "jaggupractice",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e1cdf475-de30-419b-a09c-6e312299e47c",
+		"tenantId": "69579d44-ed44-472e-b6fe-71e9badf2290"
+	}
+}

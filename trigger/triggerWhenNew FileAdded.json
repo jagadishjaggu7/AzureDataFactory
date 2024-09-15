@@ -1,0 +1,30 @@
+{
+	"name": "triggerWhenNew FileAdded",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"Filename": "customers-10000",
+					"TableName": "Stg_CustomerData",
+					"ContainerName": "jagguinput",
+					"StagingTables": "Final_Stg_CustomerData,Stg_CustomerData"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/jagguinput/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/60c38991-bea0-4220-b74a-3db010183ee8/resourceGroups/azurelearn/providers/Microsoft.Storage/storageAccounts/demofordatafactory",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
