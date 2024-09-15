@@ -71,7 +71,7 @@
 						"parameters": {
 							"Schema": "dbo",
 							"TableName": {
-								"value": "@pipeline().parameters.TableName",
+								"value": "@pipeline().parameters.StagingTables",
 								"type": "Expression"
 							}
 						}
@@ -129,7 +129,7 @@
 							"source1": {
 								"Schema": "dbo",
 								"TableName": {
-									"value": "@pipeline().parameters.TableName",
+									"value": "@pipeline().parameters.StagingTables",
 									"type": "Expression"
 								}
 							}
