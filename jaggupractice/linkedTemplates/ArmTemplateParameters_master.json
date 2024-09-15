@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "jaggupractice"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
 		"BlobInput_connectionString": {
 			"value": ""
 		},
@@ -23,7 +26,7 @@
 		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename": {
 			"value": "customers-10000"
 		},
-		"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName": {
 			"value": "Stg_CustomerData"
 		},
 		"triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName": {

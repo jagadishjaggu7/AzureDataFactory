@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "jaggupractice"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"BlobInput_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobInput'"
@@ -31,7 +35,7 @@
 			"type": "string",
 			"defaultValue": "customers-10000"
 		},
-		"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName": {
 			"type": "string",
 			"defaultValue": "Stg_CustomerData"
 		},
@@ -74,6 +78,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureBlobStorage1_connectionString": {
+						"value": "[parameters('AzureBlobStorage1_connectionString')]"
+					},
 					"BlobInput_connectionString": {
 						"value": "[parameters('BlobInput_connectionString')]"
 					},
@@ -92,8 +99,8 @@
 					"triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename": {
 						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename')]"
 					},
-					"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
-						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName')]"
+					"triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName": {
+						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName')]"
 					},
 					"triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName": {
 						"value": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName')]"

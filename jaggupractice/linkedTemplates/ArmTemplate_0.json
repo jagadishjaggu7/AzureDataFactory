@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "jaggupractice"
 		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
 		"BlobInput_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'BlobInput'"
@@ -31,7 +35,7 @@
 			"type": "string",
 			"defaultValue": "customers-10000"
 		},
-		"triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName": {
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName": {
 			"type": "string",
 			"defaultValue": "Stg_CustomerData"
 		},
@@ -52,6 +56,19 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/BlobInput')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -281,12 +298,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"name": "[concat(parameters('factoryName'), '/backupdataOutput')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "BlobInput",
+					"referenceName": "AzureBlobStorage1",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -294,34 +311,17 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"container": "outputstorage"
+						"container": "jaggubackupforoutput"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": [
-					{
-						"name": "movieId",
-						"type": "String"
-					},
-					{
-						"name": "title",
-						"type": "String"
-					},
-					{
-						"name": "genres",
-						"type": "String"
-					},
-					{
-						"name": "year_released",
-						"type": "String"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/BlobInput')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
 			]
 		},
 		{
@@ -505,7 +505,7 @@
 								"parameters": {
 									"Schema": "dbo",
 									"TableName": {
-										"value": "@pipeline().parameters.TableName",
+										"value": "@pipeline().parameters.StagingTables",
 										"type": "Expression"
 									}
 								}
@@ -564,7 +564,7 @@
 									"source1": {
 										"Schema": "dbo",
 										"TableName": {
-											"value": "@pipeline().parameters.TableName",
+											"value": "@pipeline().parameters.StagingTables",
 											"type": "Expression"
 										}
 									},
@@ -777,8 +777,14 @@
 								"referenceName": "AzureSqlTable1",
 								"type": "DatasetReference",
 								"parameters": {
-									"Schema": "dbo",
-									"TableName": "CustomerData"
+									"Schema": {
+										"value": "@pipeline().parameters.Schema",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "@pipeline().parameters.MainTable",
+										"type": "Expression"
+									}
 								}
 							}
 						]
@@ -902,6 +908,222 @@
 							"referenceName": "OutputStorageSQL",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "backupdatatoblob",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy data2",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Index",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "Index",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomerId",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "CustomerId",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "FirstName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "FirstName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "LastName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "LastName",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Company",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Company",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "City",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Phone 1",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Phone 1",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Phone 2",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Phone 2",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "SubscriptionDate",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "SubscriptionDate",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Website",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Website",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {
+									"Schema": {
+										"value": "@pipeline().parameters.Schema",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "@pipeline().parameters.MainTable",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "backupdataOutput",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -909,16 +1131,28 @@
 				},
 				"parameters": {
 					"Filename": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "customers-10000"
 					},
-					"TableName": {
-						"type": "string"
+					"Stg_TableName": {
+						"type": "string",
+						"defaultValue": "Stg_CustomerData"
 					},
 					"ContainerName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "jagguinput"
 					},
 					"StagingTables": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "Final_Stg_CustomerData,Stg_CustomerData"
+					},
+					"MainTable": {
+						"type": "string",
+						"defaultValue": "CustomerData"
+					},
+					"Schema": {
+						"type": "string",
+						"defaultValue": "dbo"
 					}
 				},
 				"annotations": [],
@@ -929,7 +1163,8 @@
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]",
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable2')]",
-				"[concat(variables('factoryId'), '/linkedServices/OutputStorageSQL')]"
+				"[concat(variables('factoryId'), '/linkedServices/OutputStorageSQL')]",
+				"[concat(variables('factoryId'), '/datasets/backupdataOutput')]"
 			]
 		},
 		{
@@ -947,7 +1182,7 @@
 						},
 						"parameters": {
 							"Filename": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename')]",
-							"TableName": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_TableName')]",
+							"Stg_TableName": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName')]",
 							"ContainerName": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName')]",
 							"StagingTables": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables')]"
 						}
