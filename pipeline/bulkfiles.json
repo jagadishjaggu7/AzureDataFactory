@@ -105,7 +105,13 @@
 							"outputs": [
 								{
 									"referenceName": "BulkFilesSQL",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"Stg_Table": {
+											"value": "@replace(item().name,'.csv','')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
