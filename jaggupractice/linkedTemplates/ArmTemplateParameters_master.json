@@ -8,11 +8,23 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
+		"AzureSqlDatabase1_password": {
+			"value": ""
+		},
 		"BlobInput_connectionString": {
 			"value": ""
 		},
 		"OutputStorageSQL_password": {
 			"value": ""
+		},
+		"AzureSqlDatabase1_properties_typeProperties_server": {
+			"value": "itsdemoserver.database.windows.net"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_database": {
+			"value": "bulkfiles"
+		},
+		"AzureSqlDatabase1_properties_typeProperties_userName": {
+			"value": "jagadish"
 		},
 		"OutputStorageSQL_properties_typeProperties_server": {
 			"value": "itsdemoserver.database.windows.net"
