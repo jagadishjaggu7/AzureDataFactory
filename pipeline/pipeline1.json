@@ -20,7 +20,16 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.ContainerName}//@{concat(pipeline().parameters.Filename,'.csv')}"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.@{pipeline().parameters.StagingTables}"
+					}
+				],
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
@@ -50,7 +59,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText1",
+						"referenceName": "Inputblob",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": {
@@ -85,7 +94,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText1",
+						"referenceName": "Inputblob",
 						"type": "DatasetReference",
 						"parameters": {
 							"FileName": {
@@ -683,6 +692,29 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "backupdatatoblob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "bulkfiles",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {

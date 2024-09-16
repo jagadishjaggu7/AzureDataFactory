@@ -1,40 +1,26 @@
 {
-	"name": "Inputblob",
+	"name": "bulkfiles",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "BlobInput",
+			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"FileName": {
-				"type": "string"
-			},
-			"Container": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@concat(dataset().FileName,'.csv')",
-					"type": "Expression"
-				},
-				"container": {
-					"value": "@dataset().Container",
-					"type": "Expression"
-				}
+				"container": "bulkfilesinput"
 			},
 			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "Index",
+				"name": "IndexID",
 				"type": "String"
 			},
 			{
@@ -62,11 +48,11 @@
 				"type": "String"
 			},
 			{
-				"name": "Phone 1",
+				"name": "Phone1",
 				"type": "String"
 			},
 			{
-				"name": "Phone 2",
+				"name": "Phone2",
 				"type": "String"
 			},
 			{
@@ -82,6 +68,5 @@
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
