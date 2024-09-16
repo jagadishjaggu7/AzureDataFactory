@@ -1,80 +1,62 @@
 {
-	"name": "bulkfiles",
+	"name": "getmetadata",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"FileName": {
-				"type": "String"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().FileName",
-					"type": "Expression"
-				},
 				"folderPath": "bulkbro",
 				"container": "bulkfilesinput"
 			},
 			"columnDelimiter": ",",
-			"rowDelimiter": "\n",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": [
 			{
-				"name": "IndexID",
+				"name": "year_month",
 				"type": "String"
 			},
 			{
-				"name": "Customer Id",
+				"name": "month_of_release",
 				"type": "String"
 			},
 			{
-				"name": "First Name",
+				"name": "passenger_type",
 				"type": "String"
 			},
 			{
-				"name": "Last Name",
+				"name": "direction",
 				"type": "String"
 			},
 			{
-				"name": "Company",
+				"name": "citizenship",
 				"type": "String"
 			},
 			{
-				"name": "City",
+				"name": "visa",
 				"type": "String"
 			},
 			{
-				"name": "Country",
+				"name": "country_of_residence",
 				"type": "String"
 			},
 			{
-				"name": "Phone1",
+				"name": "estimate",
 				"type": "String"
 			},
 			{
-				"name": "Phone2",
+				"name": "standard_error",
 				"type": "String"
 			},
 			{
-				"name": "Email",
-				"type": "String"
-			},
-			{
-				"name": "Subscription Date",
-				"type": "String"
-			},
-			{
-				"name": "Website",
+				"name": "status",
 				"type": "String"
 			}
 		]
