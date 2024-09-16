@@ -90,7 +90,7 @@
 						"parameters": {
 							"Schema": "dbo",
 							"TableName": {
-								"value": "@pipeline().parameters.StagingTables",
+								"value": "@pipeline().parameters.Stg_TableName",
 								"type": "Expression"
 							}
 						}
@@ -734,7 +734,7 @@
 			},
 			"Stg_TableName": {
 				"type": "string",
-				"defaultValue": "Stg_CustomerData"
+				"defaultValue": "Stg_Customer_Data"
 			},
 			"ContainerName": {
 				"type": "string",
