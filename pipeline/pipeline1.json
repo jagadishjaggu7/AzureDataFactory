@@ -222,6 +222,7 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
+
 							"Stg_TableName": {
 								"value": "@pipeline().parameters.Stg_TableName",
 								"type": "Expression"
@@ -847,7 +848,7 @@
 			},
 			"Stg_TableName": {
 				"type": "string",
-				"defaultValue": "Stg_CustomerData"
+				"defaultValue": "Stg_Customer_Data"
 			},
 			"ContainerName": {
 				"type": "string",
