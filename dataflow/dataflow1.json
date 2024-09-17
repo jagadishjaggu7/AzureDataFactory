@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "Inputblob",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -34,10 +34,23 @@
 				}
 			],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          Index as string,",
+				"          {Customer Id} as string,",
+				"          {First Name} as string,",
+				"          {Last Name} as string,",
+				"          Company as string,",
+				"          City as string,",
+				"          Country as string,",
+				"          {Phone 1} as string,",
+				"          {Phone 2} as string,",
+				"          Email as string,",
+				"          {Subscription Date} as string,",
+				"          Website as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
+				"     ignoreNoFilesFound: false) ~> source1",
 				"source1 derive(Name = concat(FirstName,LastName),",
 				"          SubscriptionDate = toDate(SubscriptionDate, 'dd-MM-yyyy')) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
