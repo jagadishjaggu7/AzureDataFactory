@@ -13,7 +13,9 @@
 					"Filename": "customers-10000",
 					"Stg_TableName": "Stg_CustomerData",
 					"ContainerName": "jagguinput",
-					"StagingTables": "Final_Stg_CustomerData,Stg_CustomerData"
+					"StagingTables": "Final_Stg_CustomerData,Stg_CustomerData",
+					"MainTable": "CustomerData",
+					"Schema": "dbo"
 				}
 			}
 		],
