@@ -220,14 +220,7 @@
 				"outputs": [
 					{
 						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"Schema": "dbo",
-							"TableName": {
-								"value": "@pipeline().parameters.Stg_TableName",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					}
 				]
 			},

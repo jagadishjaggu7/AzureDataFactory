@@ -5,12 +5,20 @@
 			"referenceName": "OutputStorageSQL",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Stg_TableName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Stg_"
+			"table": {
+				"value": "@dataset().Stg_TableName",
+				"type": "Expression"
+			}
 		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
