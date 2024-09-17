@@ -277,16 +277,7 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "dataflow1",
-						"type": "DataFlowReference",
-						"datasetParameters": {
-							"source1": {
-								"Schema": "dbo",
-								"TableName": {
-									"value": "@pipeline().parameters.StagingTables",
-									"type": "Expression"
-								}
-							}
-						}
+						"type": "DataFlowReference"
 					},
 					"compute": {
 						"coreCount": 8,
