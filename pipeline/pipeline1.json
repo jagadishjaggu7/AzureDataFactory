@@ -33,16 +33,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"name": "FilePath",
-								"value": "$$FILEPATH"
-							},
-							{
-								"name": "date",
-								"value": ""
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
@@ -60,6 +50,150 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "IndexID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Index",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Customer_Id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "CustomerId",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "First_Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "FirstName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Last_Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "LastName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Company",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Company",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "City",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "City",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Country",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Phone1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Phone 1",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Phone2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Phone 2",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Email",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Email",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Subscription_Date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "SubscriptionDate",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Website",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Website",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -88,8 +222,8 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
-							"Schema": "dbo",
-							"TableName": {
+
+							"Stg_TableName": {
 								"value": "@pipeline().parameters.Stg_TableName",
 								"type": "Expression"
 							}
@@ -146,9 +280,8 @@
 						"type": "DataFlowReference",
 						"datasetParameters": {
 							"source1": {
-								"Schema": "dbo",
-								"TableName": {
-									"value": "@pipeline().parameters.StagingTables",
+								"Stg_TableName": {
+									"value": "@pipeline().parameters.Stg_TableName",
 									"type": "Expression"
 								}
 							}
@@ -197,14 +330,14 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "IndexID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
 									"name": "Index",
 									"type": "Int32",
 									"physicalType": "int"
+								},
+								"sink": {
+									"name": "IndexID",
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
@@ -313,18 +446,6 @@
 									"name": "Email",
 									"type": "String",
 									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "SubscriptionDate",
-									"type": "DateTime",
-									"physicalType": "date"
-								},
-								"sink": {
-									"name": "SubscriptionDate",
-									"type": "DateTime",
-									"physicalType": "date"
 								}
 							},
 							{
@@ -349,24 +470,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable2",
-						"type": "DatasetReference"
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"Stg_TableName": {
+								"value": "@pipeline().parameters.Stg_TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"Schema": {
-								"value": "@pipeline().parameters.Schema",
-								"type": "Expression"
-							},
-							"TableName": {
-								"value": "@pipeline().parameters.MainTable",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
 					}
 				]
 			},
@@ -451,15 +568,21 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy data2",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "Data flow1",
 						"dependencyConditions": [
 							"Failed"
+						]
+					},
+					{
+						"activity": "Copy data2",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "backupdatatoblob",
+						"dependencyConditions": [
+							"Succeeded"
 						]
 					}
 				],
@@ -510,7 +633,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
+						"queryTimeout": "03:20:00",
 						"partitionOption": "None"
 					},
 					"sink": {
@@ -682,18 +805,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"Schema": {
-								"value": "@pipeline().parameters.Schema",
-								"type": "Expression"
-							},
-							"TableName": {
-								"value": "@pipeline().parameters.MainTable",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
@@ -710,7 +823,8 @@
 					{
 						"activity": "backupdatatoblob",
 						"dependencyConditions": [
-							"Succeeded"
+							"Succeeded",
+							"Failed"
 						]
 					}
 				],
