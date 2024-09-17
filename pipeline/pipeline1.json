@@ -339,14 +339,14 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "IndexID",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
 									"name": "Index",
 									"type": "Int32",
 									"physicalType": "int"
+								},
+								"sink": {
+									"name": "IndexID",
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
@@ -460,8 +460,8 @@
 							{
 								"source": {
 									"name": "SubscriptionDate",
-									"type": "DateTime",
-									"physicalType": "date"
+									"type": "String",
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "SubscriptionDate",
@@ -823,12 +823,8 @@
 						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference",
 						"parameters": {
-							"Schema": {
-								"value": "@pipeline().parameters.Schema",
-								"type": "Expression"
-							},
-							"TableName": {
-								"value": "@pipeline().parameters.MainTable",
+							"Stg_TableName": {
+								"value": "@pipeline().parameters.Stg_TableName",
 								"type": "Expression"
 							}
 						}
