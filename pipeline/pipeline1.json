@@ -567,16 +567,21 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Copy data2",
+						"activity": "Data flow1",
 						"dependencyConditions": [
-							"Succeeded",
 							"Failed"
 						]
 					},
 					{
-						"activity": "Data flow1",
+						"activity": "Copy data2",
 						"dependencyConditions": [
 							"Failed"
+						]
+					},
+					{
+						"activity": "backupdatatoblob",
+						"dependencyConditions": [
+							"Succeeded"
 						]
 					}
 				],
@@ -627,7 +632,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
+						"queryTimeout": "03:20:00",
 						"partitionOption": "None"
 					},
 					"sink": {
