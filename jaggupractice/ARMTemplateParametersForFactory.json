@@ -47,6 +47,12 @@
 		"triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables": {
 			"value": "Final_Stg_CustomerData,Stg_CustomerData"
 		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_MainTable": {
+			"value": "CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Schema": {
+			"value": "dbo"
+		},
 		"triggerWhenNew FileAdded_properties_typeProperties_scope": {
 			"value": "/subscriptions/60c38991-bea0-4220-b74a-3db010183ee8/resourceGroups/azurelearn/providers/Microsoft.Storage/storageAccounts/demofordatafactory"
 		}

@@ -63,6 +63,14 @@
 			"type": "string",
 			"defaultValue": "Final_Stg_CustomerData,Stg_CustomerData"
 		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_MainTable": {
+			"type": "string",
+			"defaultValue": "CustomerData"
+		},
+		"triggerWhenNew FileAdded_properties_pipeline1_parameters_Schema": {
+			"type": "string",
+			"defaultValue": "dbo"
+		},
 		"triggerWhenNew FileAdded_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/60c38991-bea0-4220-b74a-3db010183ee8/resourceGroups/azurelearn/providers/Microsoft.Storage/storageAccounts/demofordatafactory"
@@ -1591,7 +1599,9 @@
 							"Filename": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Filename')]",
 							"Stg_TableName": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Stg_TableName')]",
 							"ContainerName": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_ContainerName')]",
-							"StagingTables": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables')]"
+							"StagingTables": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_StagingTables')]",
+							"MainTable": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_MainTable')]",
+							"Schema": "[parameters('triggerWhenNew FileAdded_properties_pipeline1_parameters_Schema')]"
 						}
 					}
 				],
