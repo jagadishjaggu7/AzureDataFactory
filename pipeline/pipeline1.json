@@ -284,16 +284,6 @@
 									"type": "Expression"
 								}
 							}
-						},
-						"linkedServiceParameters": {
-							"source1": {
-								"schemaLinkedService": {
-									"Stg_TableName": {
-										"value": "@pipeline().parameters.Stg_TableName",
-										"type": "Expression"
-									}
-								}
-							}
 						}
 					},
 					"compute": {
@@ -820,14 +810,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
-						"type": "DatasetReference",
-						"parameters": {
-							"Stg_TableName": {
-								"value": "@pipeline().parameters.Stg_TableName",
-								"type": "Expression"
-							}
-						}
+						"referenceName": "AzureSqlTable2",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
