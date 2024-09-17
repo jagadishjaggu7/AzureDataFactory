@@ -628,7 +628,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"partitionOption": "PhysicalPartitionsOfTable"
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -817,7 +817,8 @@
 					{
 						"activity": "backupdatatoblob",
 						"dependencyConditions": [
-							"Succeeded"
+							"Succeeded",
+							"Failed"
 						]
 					}
 				],
