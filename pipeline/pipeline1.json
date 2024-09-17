@@ -491,13 +491,19 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable2",
-						"type": "DatasetReference"
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference",
+						"parameters": {
+							"Stg_TableName": {
+								"value": "@pipeline().parameters.Stg_TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "AzureSqlTable2",
 						"type": "DatasetReference"
 					}
 				]
