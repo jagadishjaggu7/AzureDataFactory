@@ -449,18 +449,6 @@
 							},
 							{
 								"source": {
-									"name": "SubscriptionDate",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "SubscriptionDate",
-									"type": "DateTime",
-									"physicalType": "date"
-								}
-							},
-							{
-								"source": {
 									"name": "Website",
 									"type": "String",
 									"physicalType": "varchar"
