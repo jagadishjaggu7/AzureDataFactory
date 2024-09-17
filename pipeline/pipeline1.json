@@ -80,7 +80,7 @@
 						"parameters": {
 							"Schema": "dbo",
 							"TableName": {
-								"value": "@pipeline().parameters.StagingTables",
+								"value": "@pipeline().parameters.Staging_",
 								"type": "Expression"
 							}
 						}
